@@ -42,7 +42,7 @@ export function Header() {
         <nav aria-label="Navigation principale" className="hidden items-center gap-8 lg:flex">
           <Link href="/realisations" className={link}>Réalisations</Link>
           <div ref={subRef} className="relative">
-            <button type="button" aria-expanded={sub} aria-haspopup="true" onClick={() => setSub((v) => !v)} className={`${link} inline-flex items-center gap-1.5`}>
+            <button type="button" aria-expanded={sub} aria-haspopup="true" onClick={() => setSub((v) => !v)} className={`rounded-md ${link} inline-flex items-center gap-1.5`}>
               Sur-mesure
               <svg aria-hidden width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="m2 3.5 3 3 3-3" /></svg>
             </button>
@@ -69,12 +69,12 @@ export function Header() {
           <a href={site.phoneHref} className="inline-flex items-center gap-2 text-[13px] text-ink/80 hover:text-ink">
             <PhoneIcon /> {site.phone}
           </a>
-          <Link href="/#contact" className="bg-ink px-5 py-3 text-[10px] font-medium uppercase tracking-[0.16em] text-cream transition-colors hover:bg-ink/85">
+          <Link href="/#contact" className="rounded-md bg-ink px-5 py-3 text-[10px] font-medium uppercase tracking-[0.16em] text-cream transition-colors hover:bg-ink/85">
             Un projet
           </Link>
         </div>
 
-        <button type="button" className="-mr-2 p-2 text-[10px] font-medium uppercase tracking-[0.18em] lg:hidden" aria-expanded={menu} aria-controls="menu-mobile" onClick={() => setMenu((v) => !v)}>
+        <button type="button" className="rounded-md -mr-2 p-2 text-[10px] font-medium uppercase tracking-[0.18em] lg:hidden" aria-expanded={menu} aria-controls="menu-mobile" onClick={() => setMenu((v) => !v)}>
           {menu ? "Fermer" : "Menu"}
         </button>
       </div>
@@ -96,8 +96,8 @@ export function Header() {
             ))}
           </ul>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/#contact" className="bg-ink px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.16em] text-cream">Un projet</Link>
-            <a href={site.phoneHref} className="inline-flex items-center gap-2 border border-ink/20 px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.16em]"><PhoneIcon /> {site.phone}</a>
+            <Link href="/#contact" className="rounded-md bg-ink px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.16em] text-cream">Un projet</Link>
+            <a href={site.phoneHref} className="rounded-md inline-flex items-center gap-2 border border-ink/20 px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.16em]"><PhoneIcon /> {site.phone}</a>
           </div>
         </nav>
       )}

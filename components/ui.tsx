@@ -55,7 +55,7 @@ export function Button({
     <Link
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.16em] transition-colors ${variants[variant]} ${className}`}
+      className={`rounded-md inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.16em] transition-colors ${variants[variant]} ${className}`}
     >
       {children}
     </Link>
@@ -121,8 +121,8 @@ export function Photo({
 
 export function PhotoPlaceholder({ className = "" }: { className?: string }) {
   return (
-    <div className={`flex flex-col justify-end border border-line bg-[#EDEAE3] p-2 ${className}`}>
-      <div className="flex flex-1 flex-col justify-end border border-line/80 p-5">
+    <div className={`rounded-md flex flex-col justify-end border border-line bg-[#EDEAE3] p-2 ${className}`}>
+      <div className="rounded-md flex flex-1 flex-col justify-end border border-line/80 p-5">
         <p className="flex items-center gap-2 text-[9px] font-medium uppercase tracking-[0.2em] text-muted">
           <svg aria-hidden width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.1"><rect x="1.5" y="3.5" width="13" height="9.5" rx="1" /><circle cx="8" cy="8.2" r="2.4" /><path d="M5.5 3.5 6.5 2h3l1 1.5" /></svg>
           Photo à réaliser
