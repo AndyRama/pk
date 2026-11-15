@@ -39,6 +39,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-7 border border-line bg-card p-6 md:p-8">
+      <p role="note" className="text-[12px] leading-relaxed text-body">Ce formulaire ne transmet actuellement aucune demande. Pour échanger sur votre projet, utilisez le numéro de téléphone affiché sur cette page.</p>
       <div>
         <label htmlFor="nom" className={label}>Nom et prénom *</label>
         <input id="nom" name="nom" required autoComplete="name" className={field} />
@@ -71,7 +72,7 @@ export function ContactForm() {
       </div>
       <label className="flex items-start gap-3 text-[11px] leading-relaxed text-body">
         <input type="checkbox" name="consentement" required className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-ink" />
-        J'accepte que PK Agencement utilise ces informations pour me recontacter au sujet de mon projet. Aucune donnée n'est transmise à un tiers.
+        J’ai pris connaissance de la politique de confidentialité accessible sous ce formulaire.
       </label>
       <button type="submit" className="flex w-full items-center justify-center gap-3 bg-ink px-6 py-4 text-[10px] font-medium uppercase tracking-[0.16em] text-cream transition-colors hover:bg-ink/85">
         Envoyer ma demande <span aria-hidden>→</span>
