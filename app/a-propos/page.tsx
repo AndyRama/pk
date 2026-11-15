@@ -51,7 +51,7 @@ export default function AProposPage() {
       <section className="border-y border-line bg-sand py-16">
         <Container className="grid gap-8 md:grid-cols-3">
           {values.map((v) => (
-            <div key={v.title} className="border-t border-line pt-5">
+            <div key={v.title} className="rounded-md border-t border-line pt-5">
               <h3 className="text-[17px] font-normal">{v.title}</h3>
               <p className="mt-2 text-[13px] leading-relaxed text-body">{v.text}</p>
             </div>

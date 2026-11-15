@@ -38,7 +38,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-7 border border-line bg-card p-6 md:p-8">
+    <form onSubmit={onSubmit} noValidate className="rounded-md space-y-7 border border-line bg-card p-6 md:p-8">
       <p role="note" className="text-[12px] leading-relaxed text-body">Ce formulaire ne transmet actuellement aucune demande. Pour échanger sur votre projet, utilisez le numéro de téléphone affiché sur cette page.</p>
       <div>
         <label htmlFor="nom" className={label}>Nom et prénom *</label>
@@ -63,7 +63,7 @@ export function ContactForm() {
         <textarea id="projet" name="projet" rows={3} placeholder="Dimensions approximatives, ce qui vous gêne dans la pièce, ce que vous aimeriez ranger…" className={`${field} resize-none`} />
       </div>
       <div>
-        <label className="flex cursor-pointer items-center justify-center gap-2 border border-dashed border-ink/25 px-4 py-3 text-[12px] text-body transition-colors hover:border-ink focus-within:outline focus-within:outline-2 focus-within:outline-gold">
+        <label className="rounded-md flex cursor-pointer items-center justify-center gap-2 border border-dashed border-ink/25 px-4 py-3 text-[12px] text-body transition-colors hover:border-ink focus-within:outline focus-within:outline-2 focus-within:outline-gold">
           <svg aria-hidden width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="m13 7.5-5 5a3 3 0 0 1-4.2-4.2l5.2-5.2a2 2 0 0 1 2.8 2.8L6.8 11" /></svg>
           Ajouter des photos ou un plan (5 max, 8 Mo)
           <input type="file" name="fichiers" multiple accept="image/jpeg,image/png,image/webp,application/pdf" className="sr-only" />
@@ -74,7 +74,7 @@ export function ContactForm() {
         <input type="checkbox" name="consentement" required className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-ink" />
         J’ai pris connaissance de la politique de confidentialité accessible sous ce formulaire.
       </label>
-      <button type="submit" className="flex w-full items-center justify-center gap-3 bg-ink px-6 py-4 text-[10px] font-medium uppercase tracking-[0.16em] text-cream transition-colors hover:bg-ink/85">
+      <button type="submit" className="rounded-md flex w-full items-center justify-center gap-3 bg-ink px-6 py-4 text-[10px] font-medium uppercase tracking-[0.16em] text-cream transition-colors hover:bg-ink/85">
         Envoyer ma demande <span aria-hidden>→</span>
       </button>
     </form>

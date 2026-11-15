@@ -30,7 +30,7 @@ export function MethodeImage() {
         </Lead>
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           <figure>
-            <div className="aspect-[4/3] border border-line bg-cream p-4"><Drawing /></div>
+            <div className="rounded-md aspect-[4/3] border border-line bg-cream p-4"><Drawing /></div>
             <figcaption className="mt-3 flex justify-between text-[11px] text-body"><span className="text-[9px] font-medium uppercase tracking-[0.2em] text-gold">01 — Le projet</span><span>Dessin d'atelier · vue de face</span></figcaption>
           </figure>
           <figure>

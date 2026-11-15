@@ -107,7 +107,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </div>
             <Faq items={content.faqs} />
           </div>
-          <figure className="mt-16 border border-line bg-card p-6 md:p-8">
+          <figure className="rounded-md mt-16 border border-line bg-card p-6 md:p-8">
             <Stars className="text-[12px]" />
             <blockquote className="mt-4 max-w-[44rem] font-serif text-[15px] font-light italic leading-relaxed">{content.testimonial.text}</blockquote>
             <figcaption className="mt-4 text-[9px] font-medium uppercase tracking-[0.2em] text-muted">{content.testimonial.attribution}</figcaption>
