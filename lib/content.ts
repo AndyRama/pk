@@ -24,17 +24,150 @@ export const reviews = [
   { text: "Une bibliothèque conçue et installée de bout en bout, avec beaucoup d'écoute sur ce que nous voulions y ranger. Nous étions recommandés par des amis, et nous recommanderons à notre tour.", date: "Mars 2026", reply: "Merci à vos amis, et merci à vous pour ce projet de bibliothèque." },
 ];
 
-// Les réponses des FAQ n'étaient pas visibles sur les captures (accordéons fermés) : à reprendre du site d'origine.
-export const faqGeneral = [
-  "Combien coûte un agencement sur mesure à Bordeaux ?",
-  "Faut-il avoir des plans ou des idées précises ?",
-  "Les visuels 3D sont-ils inclus ?",
-  "Intervenez-vous en dehors de Bordeaux ?",
+export type FaqItem = { question: string; answer: string };
+
+export const faqGeneral: readonly FaqItem[] = [
+  {
+    "question": "Combien coûte un agencement sur mesure à Bordeaux ?",
+    "answer": "Il n'y a pas de tarif de série : chaque projet reçoit un devis détaillé après la visite et la validation des plans. Le budget dépend des dimensions, des rangements, des finitions et des contraintes de la pièce."
+  },
+  {
+    "question": "Faut-il avoir des plans ou des idées précises ?",
+    "answer": "Non. Une photo de la pièce, les dimensions approximatives et l'usage souhaité suffisent pour démarrer. Le dessin vient ensuite, avec vous."
+  },
+  {
+    "question": "Les visuels 3D sont-ils inclus ?",
+    "answer": "Oui, la conception comprend des plans et des visuels 3D du meuble dans la pièce, ajustés par e-mail jusqu'à validation avant fabrication."
+  },
+  {
+    "question": "Intervenez-vous en dehors de Bordeaux ?",
+    "answer": "Nous travaillons à Bordeaux et dans la métropole. Pour une adresse plus éloignée, contactez-nous pour en discuter."
+  }
 ];
-export const faqDressing = [
-  "Faut-il refaire toute la chambre pour installer un dressing ?",
-  "Combien de temps prend un dressing sur mesure ?",
-  "Peut-on intégrer un dressing dans un renfoncement ou sous une pente ?",
-  "Travaillez-vous en dehors de Bordeaux ?",
+
+export const faqDressing: readonly FaqItem[] = [
+  {
+    "question": "Faut-il refaire toute la chambre pour installer un dressing ?",
+    "answer": "Non. Dans la plupart des cas, le dressing se pose dans la pièce existante, sans travaux lourds. Nous vérifions les murs et les sols lors de la visite pour anticiper les reprises nécessaires."
+  },
+  {
+    "question": "Combien de temps prend un dressing sur mesure ?",
+    "answer": "Le délai dépend de la complexité et du planning de l'atelier. Il est précisé dans le devis, à la validation des plans. Nous tenons les délais annoncés : c'est l'un des points les plus souvent salués par nos clients."
+  },
+  {
+    "question": "Peut-on intégrer un dressing dans un renfoncement ou sous une pente ?",
+    "answer": "Oui, c'est même l'un des intérêts du sur-mesure : exploiter une niche, un recoin ou une hauteur de plafond irrégulière. Le meuble est dessiné pour la forme exacte de l'espace."
+  },
+  {
+    "question": "Travaillez-vous en dehors de Bordeaux ?",
+    "answer": "Nous intervenons à Bordeaux et dans la métropole. Pour une adresse plus éloignée, contactez-nous : nous étudions au cas par cas."
+  }
 ];
-export const faqAnswerPlaceholder = "[Réponse à compléter]";
+
+export type RealizationProject = {
+  slug: string; category: string; title: string; image: string; alt: string; href: string;
+  description: string; detail: string; tags: readonly string[];
+};
+
+// Full project stories from the original /realisations page.
+// The homepage intentionally keeps its original five compact cards above.
+export const realizationProjects: readonly RealizationProject[] = [
+  {
+    "slug": "bureau",
+    "category": "Bureau & télétravail",
+    "title": "Un bureau dans une pièce en coin",
+    "image": "/images/bureau.jpg",
+    "alt": "Bureau sur mesure dans une pièce de forme biscornue",
+    "href": "/sur-mesure/bureau",
+    "description": "Une pièce biscornue, sans un seul angle droit. Le meuble a été dessiné sur mesure pour épouser la forme exacte du mur, avec les rangements là où ils étaient possibles.",
+    "detail": "Ce projet a demandé plusieurs allers-retours de conception : recherche d'un meuble équivalent en magasin, sans succès, puis modélisation 3D pour valider chaque centimètre avant la fabrication.",
+    "tags": [
+      "Pièce atypique",
+      "Conception 3D"
+    ]
+  },
+  {
+    "slug": "teletravail",
+    "category": "Bureau & télétravail",
+    "title": "Un espace de télétravail taillé pour l'appartement",
+    "image": "/images/arche-paysage.jpg",
+    "alt": "Bibliothèque et bureau sur mesure en chêne clair dans un appartement bordelais",
+    "href": "/sur-mesure/bureau",
+    "description": "Un poste de travail fixe, mais qui ne mange pas la pièce : plan sur mesure, rangements fermés, passage des câbles prévu dès le dessin.",
+    "detail": "Les plans et les visuels 3D ont été ajustés progressivement par e-mail jusqu'à validation, avant la prise de mesures définitive sur place.",
+    "tags": [
+      "Sur mesure",
+      "Visuels 3D"
+    ]
+  },
+  {
+    "slug": "dressing",
+    "category": "Dressing & placards",
+    "title": "Un dressing qui suit la pièce",
+    "image": "/images/dressing.jpg",
+    "alt": "Dressing sur mesure en bois clair avec portes à lattes",
+    "href": "/sur-mesure/dressing",
+    "description": "Penderies, étagères et tiroirs répartis selon les usages réels du client, dans une chambre où chaque centimètre compte.",
+    "detail": "Le dressing habille toute la hauteur, avec des façades alignées au millimètre et des joues de finition qui reprennent le nu du mur.",
+    "tags": [
+      "Sur mesure",
+      "Finitions"
+    ]
+  },
+  {
+    "slug": "bibliotheque",
+    "category": "Bibliothèque & rangements",
+    "title": "Une bibliothèque du sol au plafond",
+    "image": "/images/bibliotheque.jpg",
+    "alt": "Bibliothèque sur mesure du sol au plafond",
+    "href": "/sur-mesure/bibliotheque",
+    "description": "De la conception à l'installation, une bibliothèque dessinée pour un séjour, avec les livres du client comme point de départ.",
+    "detail": "Hauteurs d'étagères calculées au format des ouvrages, montants fins pour ne pas alourdir la pièce, intégration discrète des prises.",
+    "tags": [
+      "Conception",
+      "Pose"
+    ]
+  },
+  {
+    "slug": "escalier",
+    "category": "Rangements",
+    "title": "Un rangement sous escalier, porte cintrée",
+    "image": "/images/escalier.jpg",
+    "alt": "Rangement sous escalier avec porte cintrée",
+    "href": "/sur-mesure/rangement-sous-escalier",
+    "description": "L'espace perdu sous l'escalier devient un rangement fermé, avec une porte cintrée qui suit la pente de la marche.",
+    "detail": "La porte a été cintrée en atelier pour suivre exactement la courbe de l'escalier, puis ajustée sur place à la pose.",
+    "tags": [
+      "Ajustement sur place",
+      "Pièce atypique"
+    ]
+  },
+  {
+    "slug": "cuisine",
+    "category": "Cuisine",
+    "title": "Une cuisine dessinée pour la pièce",
+    "image": "/images/cuisine.jpg",
+    "alt": "Cuisine sur mesure en bois clair",
+    "href": "/sur-mesure/cuisine",
+    "description": "Des façades sans poignées, un plan de travail continu et des rangements pensés pour la circulation réelle de la cuisine.",
+    "detail": "Chaque élément a été calé sur les murs existants pour éviter les faux aplombs et gagner les centimètres que les meubles standard laissent perdre.",
+    "tags": [
+      "Sur mesure",
+      "Sur place"
+    ]
+  },
+  {
+    "slug": "fenetres",
+    "category": "Rénovation",
+    "title": "Fenêtres bois restaurées, double vitrage ajouté",
+    "image": "/images/fenetres.jpg",
+    "alt": "Fenêtre bois restaurée avec double vitrage",
+    "href": "/sur-mesure/fenetres-bois",
+    "description": "Plutôt que de remplacer les fenêtres, elles ont été restaurées et équipées d'un double vitrage : le cachet d'origine, le confort en plus.",
+    "detail": "Une alternative à la fenêtre neuve, avec les économies réalisées sur le remplacement et l'isolation d'origine conservée dans le bâti ancien.",
+    "tags": [
+      "Rénovation",
+      "Isolation"
+    ]
+  }
+];

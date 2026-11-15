@@ -47,7 +47,7 @@ export function ContactSection() {
           <div>
             <ContactForm />
             <p className="mt-4 flex flex-wrap items-start justify-between gap-3 text-[11px] leading-relaxed text-body">
-              <span><span aria-hidden className="mr-1.5 text-gold">✓</span>Vos photos et plans sont stockés de façon privée et ne servent qu'à l'étude de votre projet.</span>
+              <span>Les fichiers sélectionnés restent dans votre navigateur : aucun fichier n’est envoyé ou stocké par ce formulaire.</span>
               <Link href="/politique-de-confidentialite" className="underline underline-offset-2 hover:text-ink">Politique de confidentialité</Link>
             </p>
           </div>
