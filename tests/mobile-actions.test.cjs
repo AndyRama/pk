@@ -1,0 +1,46 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const Module = require('node:module');
+const React = require('react');
+const { renderToStaticMarkup } = require('react-dom/server');
+const { transformSync } = require('next/dist/build/swc');
+const root = path.resolve(__dirname, '..');
+const resolve = Module._resolveFilename;
+Module._resolveFilename = function(id, ...args) { return resolve.call(this, id.startsWith('@/') ? path.join(root, id.slice(2)) : id, ...args); };
+for (const ext of ['.ts', '.tsx']) require.extensions[ext] = (module, filename) => module._compile(transformSync(fs.readFileSync(filename, 'utf8'), { filename, module: { type: 'commonjs' }, jsc: { parser: { syntax: 'typescript', tsx: filename.endsWith('.tsx') }, transform: { react: { runtime: 'automatic' } }, target: 'es2020' } }).code, filename);
+test('real Header renders sibling mobile actions with exact destinations', () => {
+  const { Header } = require('../components/Header.tsx');
+  const { site } = require('../lib/site.ts');
+  const { PathnameContext } = require('next/dist/shared/lib/hooks-client-context.shared-runtime');
+  const html = renderToStaticMarkup(React.createElement(PathnameContext.Provider, { value: '/' }, React.createElement(Header)));
+  const dock = html.match(/<\/header>(<nav aria-label="Actions rapides"[\s\S]*<\/nav>)$/);
+  assert.ok(dock, 'fixed action dock must be a sibling of the blurred header');
+  const anchors = [...dock[1].matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+  assert.equal(anchors.length, 2);
+  assert.equal(anchors[0][1], '/#contact');
+  assert.equal(anchors[0][2], 'Devis');
+  assert.equal(anchors[1][1], site.phoneHref);
+  assert.ok(/^tel:\+\d+$/.test(site.phoneHref), 'native phone destination is valid');
+  assert.match(anchors[1][2], /Téléphone/);
+  assert.match(dock[1], /lg:hidden/);
+  assert.equal((dock[1].match(/rounded-md/g) || []).length, 2);
+});
+
+test('authentic original Header SSR and protected source remain identical outside dock', () => {
+  const fixture = require('./fixtures/mobile-actions-baseline.json');
+  const { normalizeMobile } = require('./fixtures/mobile-actions-preservation.cjs');
+  for (const file of ['components/Header.tsx', 'app/globals.css']) normalizeMobile(file, fs.readFileSync(path.join(root, file)));
+  const filename = path.join(root, 'components/Header.tsx');
+  const original = new Module(filename, module);
+  original.filename = filename;
+  original.paths = Module._nodeModulePaths(path.dirname(filename));
+  original._compile(transformSync(fixture.header, { filename, module: { type: 'commonjs' }, jsc: { parser: { syntax: 'typescript', tsx: true }, transform: { react: { runtime: 'automatic' } }, target: 'es2020' } }).code, filename);
+  const { PathnameContext } = require('next/dist/shared/lib/hooks-client-context.shared-runtime');
+  const render = Header => renderToStaticMarkup(React.createElement(PathnameContext.Provider, { value: '/' }, React.createElement(Header)));
+  const baseline = render(original.exports.Header);
+  const current = render(require('../components/Header.tsx').Header);
+  assert.equal(current.slice(0, current.indexOf('</header>') + 9), baseline);
+  if (process.env.MOBILE_BASELINE_HTML) fs.writeFileSync(process.env.MOBILE_BASELINE_HTML, baseline);
+});

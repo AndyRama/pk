@@ -75,6 +75,7 @@ if (process.env.CAPTURE_RADIUS_BASELINE === '1') {
   });
   const readmeRewrite = require('./fixtures/readme-rewrite-baseline.json');
   function preservedSource(file, source, rewrite = readmeRewrite) {
+    if (file === 'components/Header.tsx' || file === 'app/globals.css') source = require('./fixtures/mobile-actions-preservation.cjs').normalizeMobile(file, source);
     // Only the exact approved documentation bytes can use the authentic old bytes.
     if (file === 'README.md' && hash(source) === rewrite.approvedSha256) {
       const original = Buffer.from(rewrite.originalBase64, 'base64');

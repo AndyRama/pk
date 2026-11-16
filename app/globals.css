@@ -29,3 +29,14 @@
     display: none;
   }
 }
+
+
+/* Keep content and the short-screen menu clear of the mobile action dock. */
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+  #contact {
+    scroll-margin-top: 84px;
+  }
+}
