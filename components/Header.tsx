@@ -35,6 +35,7 @@ export function Header() {
   const link = "text-[13px] text-ink/80 transition-colors hover:text-ink";
 
   return (
+    <>
     <header className="sticky top-0 z-50 border-b border-line bg-cream/90 backdrop-blur">
       <div className="mx-auto flex h-[68px] w-full max-w-[1168px] items-center justify-between px-6 md:px-8">
         <Logo />
@@ -80,7 +81,7 @@ export function Header() {
       </div>
 
       {menu && (
-        <nav id="menu-mobile" aria-label="Navigation mobile" className="max-h-[calc(100svh-68px)] overflow-y-auto border-t border-line bg-cream px-6 pb-8 pt-2 lg:hidden">
+        <nav id="menu-mobile" aria-label="Navigation mobile" className="max-h-[calc(100dvh-68px-80px-env(safe-area-inset-bottom))] overflow-y-auto border-t border-line bg-cream px-6 pb-8 pt-2 lg:hidden">
           <ul className="divide-y divide-line">
             <li><Link href="/realisations" className="block py-4 font-serif text-xl">Réalisations</Link></li>
             <li>
@@ -95,12 +96,13 @@ export function Header() {
               <li key={l.href}><Link href={l.href} className="block py-4 font-serif text-xl">{l.label}</Link></li>
             ))}
           </ul>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/#contact" className="rounded-md bg-ink px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.16em] text-cream">Un projet</Link>
-            <a href={site.phoneHref} className="rounded-md inline-flex items-center gap-2 border border-ink/20 px-6 py-3.5 text-[10px] font-medium uppercase tracking-[0.16em]"><PhoneIcon /> {site.phone}</a>
-          </div>
         </nav>
       )}
     </header>
+    <nav aria-label="Actions rapides" className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-3 border-t border-line bg-cream px-4 pt-4 pb-[calc(16px+env(safe-area-inset-bottom))] lg:hidden">
+      <Link href="/#contact" className="rounded-md inline-flex min-h-12 items-center justify-center bg-ink px-3 text-[10px] font-medium uppercase tracking-[0.16em] text-cream transition-colors hover:bg-ink/85">Devis</Link>
+      <a href={site.phoneHref} className="rounded-md inline-flex min-h-12 items-center justify-center gap-2 border border-ink/20 px-3 text-[10px] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:bg-sand"><PhoneIcon /> Téléphone</a>
+    </nav>
+    </>
   );
 }
