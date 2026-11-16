@@ -73,12 +73,44 @@ if (process.env.CAPTURE_RADIUS_BASELINE === '1') {
     assert.doesNotMatch(photo, /rounded-md/);
     assert.match(photo, /rounded-full/);
   });
+  const readmeRewrite = require('./fixtures/readme-rewrite-baseline.json');
+  function preservedSource(file, source, rewrite = readmeRewrite) {
+    // Only the exact approved documentation bytes can use the authentic old bytes.
+    if (file === 'README.md' && hash(source) === rewrite.approvedSha256) {
+      const original = Buffer.from(rewrite.originalBase64, 'base64');
+      assert.equal(hash(original), baseline.sources['README.md'], 'authentic README bytes');
+      assert.equal(rewrite.originalSha256, baseline.sources['README.md'], 'original README hash');
+      source = original;
+    }
+    if (file.endsWith('.tsx')) source = stripRadius(source.toString()).replace('className={`' + '${aspect}`}', 'className={aspect}');
+    return source;
+  }
+  test('README rewrite fixture locks exact approved bytes and authentic original hash', () => {
+    assert.equal(readmeRewrite.approvedSha256, '37eb4407434ed2618a5c1121124738f7d9f3584d2defb6db057b2afabd575c20');
+    assert.equal(hash(fs.readFileSync(path.join(root, 'README.md'))), readmeRewrite.approvedSha256);
+    assert.equal(readmeRewrite.originalSha256, baseline.sources['README.md']);
+    const original = Buffer.from(readmeRewrite.originalBase64, 'base64');
+    assert.equal(hash(original), baseline.sources['README.md']);
+    assert.equal(original.toString('base64'), readmeRewrite.originalBase64);
+    const approved = fs.readFileSync(path.join(root, 'README.md'));
+    assert.throws(() => preservedSource('README.md', approved, { ...readmeRewrite, originalBase64: Buffer.concat([original, Buffer.from('unauthorized')]).toString('base64') }), /authentic README bytes/);
+    assert.throws(() => preservedSource('README.md', approved, { ...readmeRewrite, originalSha256: '0'.repeat(64) }), /original README hash/);
+  });
   test('only scoped radius additions change authentic production source bytes', () => {
     for (const [file, expected] of Object.entries(baseline.sources)) {
-      let source = fs.readFileSync(path.join(root, file));
-      if (file.endsWith('.tsx')) source = stripRadius(source.toString()).replace('className={`' + '${aspect}`}', 'className={aspect}');
-      assert.equal(hash(source), expected, file);
+      const source = fs.readFileSync(path.join(root, file));
+      assert.equal(hash(preservedSource(file, source)), expected, file);
     }
+  });
+  test('unauthorized README and every other protected source mutation remain rejected', () => {
+    for (const [file, expected] of Object.entries(baseline.sources)) {
+      const source = fs.readFileSync(path.join(root, file));
+      for (const mutated of [Buffer.concat([source, Buffer.from('\nunauthorized change\n')]), Buffer.concat([Buffer.from('unauthorized'), source.subarray(1)])]) {
+        assert.throws(() => assert.equal(hash(preservedSource(file, mutated)), expected, file), { code: 'ERR_ASSERTION' }, file);
+      }
+    }
+    const original = Buffer.from(readmeRewrite.originalBase64, 'base64');
+    assert.equal(hash(preservedSource('README.md', original)), baseline.sources['README.md']);
   });
   test('all route HTML remains byte-identical apart from added corner utilities', async () => {
     const routes = await renderRoutes();
